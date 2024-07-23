@@ -47,3 +47,7 @@ Route::get('/productos/{id}', [ProductosController::class, 'edit'])->name('produ
 Route::put('/productos/{id}', [ProductosController::class, 'update'])->name('productos.update');
 /****************************       COMPRAS    ************************************ */
 Route::get('compras/nuevo', [DetalleComprasTemporalController::class, 'inicio'])->name('compras.store');
+Route::get('compras/agregar-carrito/{id}', [DetalleComprasTemporalController::class, 'agregarCarrito'])->name('compras.agregar-carrito');
+Route::get('compras/eliminar-carrito/{id}', [DetalleComprasTemporalController::class, 'eliminarCarrito'])->name('compras.eliminar-carrito');
+Route::get('compras/incrementar-carrito/{id}', [DetalleComprasTemporalController::class, 'incrementarCarrito'])->name('compras.incrementar-carrito');
+Route::get('compras/decrementar-carrito/{id}', [DetalleComprasTemporalController::class, 'decrementarCarrito'])->name('compras.decrementar-carrito');
