@@ -1,9 +1,9 @@
 @extends('layouts.plantilla')
-@section('title-head', 'COMPRAS')
-@section('subtitle-head', 'Compras')
+@section('title-head', 'VENTAS')
+@section('subtitle-head', 'Ventas')
 @section('contenido')
     <div class="container">
-        <form action="{{ route('compras.save')}}" method="post">
+        <form action="{{ route('ventas.save')}}" method="post">
             @csrf
             <div class="row">
                 <div class="col-12">
@@ -22,7 +22,7 @@
                                             <th>Nombre</th>
                                             <th>Codigo</th>
                                             <th>Stock</th>
-                                            <th>Precio <small class="text-danger">(Compra)</small></th>
+                                            <th>Precio <small class="text-danger">(Venta)</small></th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -38,9 +38,9 @@
                                                     <td>{{ $item->nombre }}</td>
                                                     <td>{{ $item->codigo }}</td>
                                                     <td>{{ $item->cantidad }}</td>
-                                                    <td>{{ $item->precio_compra }}</td>
+                                                    <td>{{ $item->precio_venta }}</td>
                                                     <td class="text-center">
-                                                        <a href="{{ route('compras.agregar-carrito', $item->id) }}"
+                                                        <a href="{{ route('ventas.agregar-carrito', $item->id) }}"
                                                             class="btn btn-outline-primary btn-sm"><i
                                                                 class="fas fa-plus"></i></a>
                                                     </td>
@@ -57,20 +57,20 @@
                 <div class="col-12 col-md-6">
                     <div class="card">
                         <div class="card-header bg-indigo">
-                            <h5 class="card-title"><i class="fas fa-shopping-cart mr-2"></i>Carrito de compras</h5>
+                            <h5 class="card-title"><i class="fas fa-shopping-cart mr-2"></i>Carrito de ventas</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12">
-                                    <label for="proveedor_id" class="form-label">Proveedor</label>
-                                    <select name="proveedor_id" id="proveedor_id" class="form-control">
+                                    <label for="cliente_id" class="form-label">Cliente</label>
+                                    <select name="cliente_id" id="cliente_id" class="form-control">
                                         <option value="">Seleccione</option>
-                                        @foreach ($proveedores as $item)
+                                        @foreach ($clientes as $item)
                                             <option value="{{ $item->id }}">{{ $item->nombre . ' ' . $item->apellido }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('proveedor_id')
+                                    @error('cliente_id')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
@@ -100,12 +100,12 @@
                                                     <td>{{ $item->producto?->codigo }}</td>
                                                     <td>
                                                         <div class="btn-group">
-                                                            <a href="{{ route('compras.decrementar-carrito', $item->id) }}"
+                                                            <a href="{{ route('ventas.decrementar-carrito', $item->id) }}"
                                                                 class="btn btn-danger btn-sm"><i
                                                                     class="fas fa-minus"></i></a>
                                                             <button type="button"
                                                                 class="btn btn-primary btn-sm">{{ $item->cantidad }}</button>
-                                                            <a href="{{ route('compras.incrementar-carrito', $item->id) }}"
+                                                            <a href="{{ route('ventas.incrementar-carrito', $item->id) }}"
                                                                 class="btn btn-success btn-sm"><i
                                                                     class="fas fa-plus"></i></a>
                                                         </div>
@@ -113,7 +113,7 @@
                                                     <td>{{ $item->precio_unitario }}</td>
                                                     <td>{{ $item->total }}</td>
                                                     <td class="text-center">
-                                                        <a href="{{ route('compras.eliminar-carrito', $item->id) }}"
+                                                        <a href="{{ route('ventas.eliminar-carrito', $item->id) }}"
                                                             class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></a>
                                                     </td>
                                                 </tr>
@@ -132,7 +132,7 @@
                     </div>
                 </div>
                 <div class="col-12 text-center">
-                    <a href="{{ route('compras.index') }}" class="btn btn-danger"><i class="fas fa-reply mr-2"></i>Volver</a>
+                    <a href="{{ route('ventas.index') }}" class="btn btn-danger"><i class="fas fa-reply mr-2"></i>Volver</a>
                     <button type="submit" class="btn btn-info">Guardar<i class="fas fa-save ml-2"></i></button>
                 </div>
             </div>

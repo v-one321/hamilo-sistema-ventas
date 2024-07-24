@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detalle_compras_temprals', function (Blueprint $table) {
+        Schema::create('detalle_ventas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('usuario_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');            
+            $table->foreignId('venta_id')->constrained('ventas')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('producto_id')->constrained('productos')->onDelete('cascade')->onUpdate('cascade');
             $table->decimal('cantidad', 10,2)->default(0.00);
             $table->decimal('precio_unitario', 10 ,2)->default(0.00);
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detalle_compras_temprals');
+        Schema::dropIfExists('detalle_ventas');
     }
 };

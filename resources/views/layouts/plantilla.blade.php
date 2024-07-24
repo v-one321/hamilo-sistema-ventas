@@ -89,6 +89,14 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('ventas.index') }}" class="nav-link {{ request()->is('ventas*') ? 'bg-indigo' : '' }}">
+                                <i class="nav-icon fas fa-shopping-cart"></i>
+                                <p>
+                                    Ventas
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

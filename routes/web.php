@@ -3,8 +3,10 @@
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\DetalleComprasTemporalController;
+use App\Http\Controllers\DetalleVentasTemporalController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\ProveedoresController;
+use App\Http\Controllers\VentasController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,3 +58,13 @@ Route::post('/compras', [DetalleComprasTemporalController::class, 'guardarCarrit
 Route::get('/compras', [ComprasController::class, 'index'])->name('compras.index');
 Route::delete('/compras/{id}', [ComprasController::class, 'destroy'])->name('compras.destroy');
 Route::get('/compras/{id}', [ComprasController::class, 'show'])->name('compras.show');
+/****************************       VENTAS    ************************************ */
+Route::get('/ventas/nuevo', [DetalleVentasTemporalController::class, 'inicio'])->name('ventas.store');
+Route::get('ventas/agregar-carrito/{id}', [DetalleVentasTemporalController::class, 'agregarCarrito'])->name('ventas.agregar-carrito');
+Route::get('/ventas/eliminar-carrito/{id}', [DetalleVentasTemporalController::class, 'eliminarCarrito'])->name('ventas.eliminar-carrito');
+Route::get('/ventas/incrementar-carrito/{id}', [DetalleVentasTemporalController::class, 'incrementarCarrito'])->name('ventas.incrementar-carrito');
+Route::get('/ventas/decrementar-carrito/{id}', [DetalleVentasTemporalController::class, 'decrementarCarrito'])->name('ventas.decrementar-carrito');
+Route::post('/ventas', [DetalleVentasTemporalController::class, 'guardarCarrito'])->name('ventas.save');
+Route::get('/ventas', [VentasController::class, 'index'])->name('ventas.index');
+Route::delete('/ventas/{id}', [VentasController::class, 'destroy'])->name('ventas.destroy');
+Route::get('/ventas/{id}', [VentasController::class, 'show'])->name('ventas.show');
