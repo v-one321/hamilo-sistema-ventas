@@ -82,7 +82,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('compras.store') }}" class="nav-link {{ request()->is('compras*') ? 'bg-indigo' : '' }}">
+                            <a href="{{ route('compras.index') }}" class="nav-link {{ request()->is('compras*') ? 'bg-indigo' : '' }}">
                                 <i class="nav-icon fas fa-shopping-cart"></i>
                                 <p>
                                     Compras
