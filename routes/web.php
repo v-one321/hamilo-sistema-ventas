@@ -54,3 +54,5 @@ Route::get('/compras/incrementar-carrito/{id}', [DetalleComprasTemporalControlle
 Route::get('/compras/decrementar-carrito/{id}', [DetalleComprasTemporalController::class, 'decrementarCarrito'])->name('compras.decrementar-carrito');
 Route::post('/compras', [DetalleComprasTemporalController::class, 'guardarCarrito'])->name('compras.save');
 Route::get('/compras', [ComprasController::class, 'index'])->name('compras.index');
+Route::delete('/compras/{id}', [ComprasController::class, 'destroy'])->name('compras.destroy');
+Route::get('/compras/{id}', [ComprasController::class, 'show'])->name('compras.show');

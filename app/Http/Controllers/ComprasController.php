@@ -16,7 +16,8 @@ class ComprasController extends Controller
      */
     public function index()
     {
-        $datos = Compras::paginate(10);
+                        //envia con datos de las relaciones
+        $datos = Compras::with('proveedores', 'usuario')->paginate(10);
         return view('compras.index', compact('datos'));
     }
 
@@ -41,7 +42,8 @@ class ComprasController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $datos = Compras::where('id', $id)->with('proveedores', 'detalle_compra', 'detalle_compra.producto')->first();
+        return view('compras.view', compact('datos'));
     }
 
     /**
@@ -65,6 +67,9 @@ class ComprasController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $item = Compras::find($id);
+        $item->estado = !$item->estado;
+        $item->save();
+        return back()->with('success', 'Estado modificado');
     }
 }

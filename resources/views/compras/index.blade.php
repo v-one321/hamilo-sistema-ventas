@@ -41,9 +41,9 @@
                                 @else
                                     @foreach ($datos as $item)
                                         <tr>
-                                            <td>{{ $item->proveedor?->nombre }}</td>
-                                            <td>{{ $item->proveedor?->apellido }}</td>
-                                            <td>{{ $item->proveedor?->contacto }}</td>
+                                            <td>{{ $item->proveedores?->nombre }}</td>
+                                            <td>{{ $item->proveedores?->apellido }}</td>
+                                            <td>{{ $item->proveedores?->contacto }}</td>
                                             <td>
                                                 @if ($item->estado)
                                                     <span class="badge bg-success">Activo</span>
@@ -54,8 +54,8 @@
                                             <td>{{ $item->usuario?->name }}</td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a href="" class="btn btn-outline-warning btn-sm"><i class="fa fa-eye"></i></a>
-                                                    <form action="" method="post">
+                                                    <a href="{{ route('compras.show', $item->id) }}" class="btn btn-outline-warning btn-sm"><i class="fa fa-eye"></i></a>
+                                                    <form action="{{ route('compras.destroy', $item->id) }}" method="post">
                                                         @method('DELETE')
                                                         @csrf
                                                         @if ($item->estado)

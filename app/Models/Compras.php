@@ -11,7 +11,10 @@ class Compras extends Model
     public function usuario(){
         return $this->belongsTo(User::class, 'usuario_id');
     }
-    public function proveedor(){
+    public function proveedores(){
         return $this->belongsTo(Proveedores::class, 'proveedor_id');
+    }
+    public function detalle_compra(){
+        return $this->hasMany(Detalle_compras::class, 'compra_id');
     }
 }
