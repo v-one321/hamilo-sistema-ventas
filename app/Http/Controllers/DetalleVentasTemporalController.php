@@ -19,7 +19,7 @@ class DetalleVentasTemporalController extends Controller
     public function inicio(){
         $productos = Productos::where('estado', true)->where('cantidad', '>', 0)->paginate(5);
         $clientes = Clientes::where('estado', true)->get();
-        $carrito = Detalle_ventas_temporal::where('usuario_id', auth()->user()->id)->get();
+        $carrito = Detalle_ventas_temporal::where('usuario_id', auth()->user()->id)->with('producto')->get();
         $sumaTotal = Detalle_ventas_temporal::selectRaw('SUM(total) AS suma')->where('usuario_id', auth()->user()->id)->first();
         return view('ventas.store', compact('productos', 'clientes', 'carrito', 'sumaTotal'));
     }

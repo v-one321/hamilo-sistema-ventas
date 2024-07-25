@@ -44,10 +44,10 @@
                 <!-- Sidebar user (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{asset('plantilla_admin/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ $item->foto_perfil ? asset('fotos/'.$item->foto_perfil) : 'plantilla_admin/dist/img/user2-160x160.jpg'}}" width="100%" height="100%" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                        <a href="{{ route('usuario.edit') }}" class="d-block">{{ Auth::user()->name }}</a>
                     </div>
                 </div>
 
