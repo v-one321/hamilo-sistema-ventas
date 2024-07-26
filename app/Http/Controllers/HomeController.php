@@ -2,27 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Clientes;
+use App\Models\Compras;
+use App\Models\Productos;
+use App\Models\Ventas;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        return view('home');
+        $productos = Productos::where('estado', true)->count();
+        $clientes = Clientes::where('estado', true)->count();
+        $compras = Compras::where('estado', true)->where('usuario_id', auth()->user()->id)->count();
+        $ventas = Ventas::where('estado', true)->where('usuario_id', auth()->user()->id)->count();
+        return view('home', compact('productos', 'clientes', 'compras', 'ventas'));
     }
 }
