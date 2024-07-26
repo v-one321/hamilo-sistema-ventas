@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Proveedores;
+use App\Models\Clientes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ProveedoresController extends Controller
+class ClientesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,12 +15,11 @@ class ProveedoresController extends Controller
     public function index(Request $request)
     {
         $search = $request->get('search');
-        $proveedores = Proveedores::when($search, function ($query) use ($search){
+        $item = Clientes::when($search, function ($query) use ($search){
             $query->where('nombre', 'LIKE', '%'.$search.'%')
-                    ->orWhere('apellido', 'LIKE', "%$search%")
-                    ->orWhere('contacto', 'LIKE', "%$search%");
+                    ->orWhere('apellido', 'LIKE', "%$search%");
         })->with('usuario')->paginate(10);
-        return response()->json(["mensaje" => "Datos cargados", "datos" => $proveedores], 200);
+        return response()->json(["mensaje" => "Datos cargados", "datos" => $item], 200);
     }
 
     /**
@@ -31,16 +30,14 @@ class ProveedoresController extends Controller
         $request->validate([
             "nombre" => "required|max:50",
             "apellido" => "max:50",
-            "identificacion" => "required|max:15|unique:proveedores,identificacion",            
-            "contacto" => "required|max:15",
+            "identificacion" => "required|max:15|unique:clientes,identificacion",
         ]);
-        $item = new Proveedores();
+        $item = new Clientes();
         $item->nombre = $request->nombre;
         if ($request->apellido != "") {
             $item->apellido = $request->apellido;            
         }
         $item->identificacion = $request->identificacion;
-        $item->contacto = $request->contacto;
         $item->usuario_id = Auth::id();
         if ($item->save()) {
             return response()->json(["mensaje" => "Registro exitoso", "datos" => $item], 200);
@@ -54,7 +51,7 @@ class ProveedoresController extends Controller
      */
     public function show(string $id)
     {
-        $item = Proveedores::find($id);
+        $item = Clientes::find($id);
         return response()->json(["mensaje" => "Dato cargado", "datos" => $item], 200);
     }
 
@@ -66,13 +63,12 @@ class ProveedoresController extends Controller
         $request->validate([
             "nombre" => "required|max:50",
             "apellido" => "max:50",
-            "identificacion" => "required|max:15|unique:proveedores,identificacion,$id"
+            "identificacion" => "required|max:15|unique:clientes,identificacion,$id"
         ]);
-        $item = Proveedores::find($id);
+        $item = Clientes::find($id);
         $item->nombre = $request->nombre;
         $item->apellido = $request->apellido;
         $item->identificacion = $request->identificacion;
-        $item->contacto = $request->contacto;
         $item->usuario_id = Auth::id();
         if ($item->save()) {
             return response()->json(["mensaje" => "Registro modificado", "datos" => $item], 201);
@@ -86,7 +82,7 @@ class ProveedoresController extends Controller
      */
     public function destroy(string $id)
     {
-        $item = Proveedores::find($id);
+        $item = Clientes::find($id);
         $item->estado = !$item->estado;
         if ($item->save()) {
             return response()->json(["mensaje" => "Estado modificado", "datos" => $item], 202);
@@ -94,8 +90,8 @@ class ProveedoresController extends Controller
             return response()->json(["mensaje" => "No se pudo modificar el estado"], 422);
         }        
     }
-    public function proveedoresActivos(){
-        $item = Proveedores::where('estado', true)->get();
+    public function clientesActivos(){
+        $item = Clientes::where('estado', true)->get();
         return response()->json(["mensaje" => "Datos cargados", "datos" => $item]);
     }
 }
